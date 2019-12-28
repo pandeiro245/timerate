@@ -12,7 +12,7 @@ module ApplicationHelper
     if person.user_id.present?
       link_to person.name, user_path(person.user)
     else
-      person.name
+      link_to person.name, person_path(person)
     end
   end
 end

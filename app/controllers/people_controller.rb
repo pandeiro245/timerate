@@ -1,4 +1,9 @@
 class PeopleController < ApplicationController
+  def show
+    @person = Person.find(params[:id])
+    @word = Word.new
+  end
+
   def create
     @person = Person.new(person_params)
     @person.create_user_id = @current_user.id

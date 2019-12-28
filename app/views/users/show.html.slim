@@ -20,6 +20,11 @@ table style='width:100%;'
     tr
       td
         = from_me_link(person)
+        - if false
+          = form_for @user do |f|
+            = f.select :person_name, @current_user.not_inviteds.map{|person| [person.name, person.id]}
+            = f.submit
+
       - if @current_user.id == @user.id
         td
           - if person.user_id.present?
