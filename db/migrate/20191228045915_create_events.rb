@@ -7,6 +7,7 @@ class CreateEvents < ActiveRecord::Migration[6.0]
       t.datetime :stopped_at
       t.integer :duration
       t.float :rate
+      t.float :limit
 
       t.timestamps
     end

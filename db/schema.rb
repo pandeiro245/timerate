@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2019_12_28_045915) do
     t.datetime "stopped_at"
     t.integer "duration"
     t.float "rate"
+    t.float "limit"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["person_id"], name: "index_events_on_person_id"
@@ -34,7 +35,6 @@ ActiveRecord::Schema.define(version: 2019_12_28_045915) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
     t.string "token"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

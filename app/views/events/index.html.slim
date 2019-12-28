@@ -1,2 +1,12 @@
- - @events.each do |event|
-  = event.person.name
+table
+  tr
+    th from
+    th to
+    th rate
+    th limit
+  - @events.each do |event|
+    tr
+      td= event.user.person.name
+      td= link_to event.person.name, person_path(event.person)
+      td= event.rate || 'yet'
+      td= event.limit || 'yet'
