@@ -14,7 +14,7 @@ h2 to
 - @user.to_me.each do |person|
   div=to_me_link(person)
 
-h2 from
+h2 people
 table style='width:100%;'
   - @user.from_me.each do |person|
     tr
@@ -42,6 +42,20 @@ table style='width:100%;'
                 - @person.errors.full_messages.each do |message|
                   li = message
 
+          .field
+            = f.text_field :name
+
+h2 words
+
+table style='width:100%;'
+  - @user.words.each do |word|
+    tr
+      td
+        = link_to word.name, word
+  -if @current_user.id == @user.id
+    tr
+      td
+        = form_for @word do |f|
           .field
             = f.text_field :name
 

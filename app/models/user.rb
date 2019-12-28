@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   has_secure_token :token
   has_one :person
+  has_many :words
 
   def self.clean
     self.all.each do |user|
