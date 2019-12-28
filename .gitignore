@@ -30,6 +30,7 @@
 
 # Original
 .c9
+.env
 
 /public/packs
 /public/packs-test
