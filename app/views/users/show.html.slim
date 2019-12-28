@@ -1,6 +1,38 @@
 = link_to 'TOP', :root
 
-h2=@user.name(@current_user)
-h2 from him
-- @user.from_me.each do |person|
-  div=person.name
+h2 names
+= @user.names_str
+
+/= render 'shared/video'
+
+h2 to
+- @user.to_me.each do |person|
+  div=to_me_link(person)
+
+h2 from
+table style='width:100%;'
+  - @user.from_me.each do |person|
+    tr
+      td
+        = from_me_link(person)
+      - if @current_user.id == @user.id
+        td
+          - if person.user_id.present?
+            | invited
+          - else
+            input type='text' value="https://#{request.host}/?person_token=#{person.token}" style='width:100%;'
+  -if @current_user.id == @user.id
+    tr
+      td colspan=2
+        = form_for @person do |f|
+          - if @person.errors.any?
+            #error_explanation
+              h2 = "#{pluralize(@person.errors.count, "error")} prohibited this person from being saved:"
+              ul 
+                - @person.errors.full_messages.each do |message|
+                  li = message
+
+          .field
+            = f.text_field :name
+
+

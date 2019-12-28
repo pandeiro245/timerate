@@ -3,10 +3,7 @@ table style='width:100%;'
   - @current_user.from_me.each do |person|
     tr
       td
-        - if person.user_id.present?
-          =link_to person.name, user_path(person.user)
-        - else
-          = person.name
+        = from_me_link(person)
       td
         - if person.user_id.present?
           | invited
@@ -27,11 +24,9 @@ table style='width:100%;'
 
 h2 Someone who want you
 table style='width:100%;'
-  tr
-    th name
   - @current_user.to_me.each do |person|
     tr
-      td=link_to person.create_user_name, user_path(person.user)
+      td=link_to person.create_user_name, user_path(person.create_user)
 
 h2 events
 table

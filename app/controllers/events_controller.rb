@@ -1,6 +1,9 @@
 class EventsController < ApplicationController
   def index
-    @person = Person.new
-    @events = Event.where(user: @current_user)
+    if @current_user.blank?
+      render html: 'no invitation'
+    else
+      redirect_to user_path(@current_user)
+    end
   end
 end
