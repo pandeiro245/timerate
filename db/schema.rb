@@ -27,7 +27,9 @@ ActiveRecord::Schema.define(version: 2019_12_28_045915) do
   end
 
   create_table "people", force: :cascade do |t|
+    t.string "token"
     t.integer "user_id"
+    t.integer "create_user_id"
     t.string "name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

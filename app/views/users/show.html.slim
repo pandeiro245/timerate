@@ -1,0 +1,6 @@
+= link_to 'TOP', :root
+
+h2=@user.name(@current_user)
+h2 from him
+- @user.from_me.each do |person|
+  div=person.name

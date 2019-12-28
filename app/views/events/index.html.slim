@@ -1,18 +1,37 @@
-h2 people
-ul
-  - @people.each do |person|
-    li=person.name
-  li
-    = form_for @person do |f|
-      - if @person.errors.any?
-        #error_explanation
-          h2 = "#{pluralize(@person.errors.count, "error")} prohibited this person from being saved:"
-          ul 
-            - @person.errors.full_messages.each do |message|
-              li = message
+h2 You want
+table style='width:100%;'
+  - @current_user.from_me.each do |person|
+    tr
+      td
+        - if person.user_id.present?
+          =link_to person.name, user_path(person.user)
+        - else
+          = person.name
+      td
+        - if person.user_id.present?
+          | invited
+        - else
+          input type='text' value="https://#{request.host}/?person_token=#{person.token}" style='width:100%;'
+  tr
+    td colspan=2
+      = form_for @person do |f|
+        - if @person.errors.any?
+          #error_explanation
+            h2 = "#{pluralize(@person.errors.count, "error")} prohibited this person from being saved:"
+            ul 
+              - @person.errors.full_messages.each do |message|
+                li = message
 
-      .field
-        = f.text_field :name
+        .field
+          = f.text_field :name
+
+h2 Someone who want you
+table style='width:100%;'
+  tr
+    th name
+  - @current_user.to_me.each do |person|
+    tr
+      td=link_to person.create_user_name, user_path(person.user)
 
 h2 events
 table
