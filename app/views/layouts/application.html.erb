@@ -7,9 +7,17 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-ujs/1.2.2/rails.js"></script>
+
   </head>
 
   <body>
     <%= yield %>
+  <script>
+    $(document).ready(function(){
+      $('#person_name').focus();
+    });
+  </script>
   </body>
 </html>

@@ -1,3 +1,9 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  resources :people, only: ['create', 'show']
+  resources :users, only: ['show']
+  resources :words, only: ['create', 'show']
+
+  get '/export' => 'utils#export'
+  get '/import' => 'utils#import'
+  root 'events#index'
 end

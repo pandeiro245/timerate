@@ -1,0 +1,19 @@
+h1=@person.name
+p
+  | from
+  = link_to @person.create_user.name(@current_user), user_path(@person.create_user)
+
+h2 Words
+- @person.words.each do |word|
+  div
+    = link_to word.name, word_path(word)
+
+-if @current_user.id == @person.create_user_id
+  tr
+    td colspan=2
+      = form_for @word do |f|
+        .field
+          = f.hidden_field :person_id, value: @person.id
+          = f.text_field :name
+
+

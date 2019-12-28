@@ -1,0 +1,62 @@
+= link_to 'TOP', :root
+
+h2 names
+= @user.names_str
+
+- if @user.id != @current_user.id && !@current_user.invited?(@user)
+  = form_for @user do |f|
+    = f.select :person_name, @current_user.not_inviteds.map{|person| [person.name, person.id]}
+    = f.submit
+
+/= render 'shared/video'
+
+h2 to
+- @user.to_me.each do |person|
+  div=to_me_link(person)
+
+h2 people
+table style='width:100%;'
+  - @user.from_me.each do |person|
+    tr
+      td
+        = from_me_link(person)
+        - if false
+          = form_for @user do |f|
+            = f.select :person_name, @current_user.not_inviteds.map{|person| [person.name, person.id]}
+            = f.submit
+
+      - if @current_user.id == @user.id
+        td
+          - if person.user_id.present?
+            | invited
+          - else
+            input type='text' value="https://#{request.host}/?person_token=#{person.token}" style='width:100%;'
+  -if @current_user.id == @user.id
+    tr
+      td colspan=2
+        = form_for @person do |f|
+          - if @person.errors.any?
+            #error_explanation
+              h2 = "#{pluralize(@person.errors.count, "error")} prohibited this person from being saved:"
+              ul 
+                - @person.errors.full_messages.each do |message|
+                  li = message
+
+          .field
+            = f.text_field :name
+
+h2 words
+
+table style='width:100%;'
+  - @user.words.each do |word|
+    tr
+      td
+        = link_to word.name, word
+  -if @current_user.id == @user.id
+    tr
+      td
+        = form_for @word do |f|
+          .field
+            = f.text_field :name
+
+

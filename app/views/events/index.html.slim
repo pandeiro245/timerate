@@ -1,0 +1,43 @@
+h2 You want
+table style='width:100%;'
+  - @current_user.from_me.each do |person|
+    tr
+      td
+        = from_me_link(person)
+      td
+        - if person.user_id.present?
+          | invited
+        - else
+          input type='text' value="https://#{request.host}/?person_token=#{person.token}" style='width:100%;'
+  tr
+    td colspan=2
+      = form_for @person do |f|
+        - if @person.errors.any?
+          #error_explanation
+            h2 = "#{pluralize(@person.errors.count, "error")} prohibited this person from being saved:"
+            ul 
+              - @person.errors.full_messages.each do |message|
+                li = message
+
+        .field
+          = f.text_field :name
+
+h2 Someone who want you
+table style='width:100%;'
+  - @current_user.to_me.each do |person|
+    tr
+      td=link_to person.create_user_name, user_path(person.create_user)
+
+h2 events
+table
+  tr
+    th from
+    th to
+    th rate
+    th limit
+  - @events.each do |event|
+    tr
+      td= event.user.person.name
+      td= link_to event.person.name, person_path(event.person)
+      td= event.rate || 'yet'
+      td= event.limit || 'yet'
