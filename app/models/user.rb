@@ -7,6 +7,29 @@ class User < ApplicationRecord
       user.clean
     end
   end
+
+  def merge(user_id)
+    user = User.find(user_id)
+    Person.where(user_id: user_id).update_all(user_id: id)
+    Person.where(create_user_id: user_id).update_all(create_user_id: id)
+    user.delete
+  end
+
+  def person_name
+    # for form
+  end
+
+  def invited?(user)
+    inviteds.present?
+  end
+
+  def inviteds
+    from_me.select{|person| person.user_id.blank?}
+  end
+
+  def not_inviteds
+    from_me.select{|person| person.user_id.blank?}
+  end
   
   def clean
     self.delete if from_me.blank?

@@ -3,6 +3,11 @@
 h2 names
 = @user.names_str
 
+- if @user.id != @current_user.id && !@current_user.invited?(@user)
+  = form_for @user do |f|
+    = f.select :person_name, @current_user.not_inviteds.map{|person| [person.name, person.id]}
+    = f.submit
+
 /= render 'shared/video'
 
 h2 to
